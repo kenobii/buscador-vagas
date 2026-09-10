@@ -411,12 +411,21 @@ def salvar_html(vagas, links, caminho, demo=False):
   .big:hover{border-color:var(--grn)}
   .foot{color:var(--mut);font-size:12px;margin-top:34px;text-align:center}
   .note{color:var(--mut);font-size:13px;margin:0 0 4px}
+  .atualizar{margin:12px 0 4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  #btnAtualizar{background:var(--grn);color:#08120b;font-weight:700;border:0;border-radius:10px;
+    padding:10px 16px;font-size:14px;cursor:pointer}
+  #btnAtualizar:disabled{opacity:.6;cursor:default}
+  .stAt{color:var(--mut);font-size:13px}
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>Minhas Vagas</h1>
   <p class="sub">Analista / Coordenador Administrativo &middot; Brasília-DF</p>
+  <div class="atualizar">
+    <button id="btnAtualizar" onclick="atualizarAgora()">🔄 Atualizar agora</button>
+    <span id="statusAtualizar" class="stAt"></span>
+  </div>
   %s
   <p class="note">Atualizado em %s &middot; %d vaga(s) encontrada(s)</p>
 
@@ -429,6 +438,29 @@ def salvar_html(vagas, links, caminho, demo=False):
 
   <p class="foot">Gerado automaticamente pelo seu buscador de vagas. Cada vez que rodar, esta página é atualizada.</p>
 </div>
+<script>
+async function atualizarAgora(){
+  var s=document.getElementById('statusAtualizar');
+  var b=document.getElementById('btnAtualizar');
+  var senha=prompt('Digite a senha para atualizar as vagas:');
+  if(!senha){return;}
+  b.disabled=true; s.textContent='Atualizando… leva cerca de 1 minuto.';
+  try{
+    var r=await fetch('https://buscador-vagas-botao.vercel.app/api/atualizar',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({senha:senha})});
+    if(r.ok){
+      s.textContent='Pedido enviado! Recarregue esta página em ~1 minuto para ver as vagas novas.';
+    }else if(r.status===401){
+      s.textContent='Senha incorreta. Tente de novo.'; b.disabled=false;
+    }else{
+      s.textContent='Não consegui atualizar agora. Tente mais tarde.'; b.disabled=false;
+    }
+  }catch(e){
+    s.textContent='Sem conexão com o atualizador. Tente mais tarde.'; b.disabled=false;
+  }
+}
+</script>
 </body>
 </html>""" % (aviso_demo, e(agora), len(vagas), corpo_vagas, corpo_links)
 
