@@ -1,0 +1,16 @@
+# Segredos — NUNCA subir
+.env
+
+# Dados pessoais (currículo mestre + saídas geradas com contato) — repo é público
+curriculo_mestre.json
+Curriculo_*.pdf
+texto_*.txt
+
+# Artefatos gerados (a nuvem regenera)
+site/
+*.xlsx
+preview_demo.html
+
+# Python
+__pycache__/
+*.pyc

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Como usar o Buscador de Vagas</title>
+<style>
+  :root{
+    --bg:#0f1512; --card:#161d19; --bd:#26302a; --fg:#e8efe9; --mut:#9fb0a7;
+    --grn:#37c07a; --grnd:#2a9c61; --amb:#e7b84b; --blue:#5aa2e6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.6 system-ui,"Segoe UI",Arial,sans-serif;padding:32px 16px}
+  .wrap{max-width:760px;margin:0 auto}
+  h1{font-size:28px;margin:0 0 4px}
+  .sub{color:var(--mut);margin:0 0 28px}
+  .card{background:var(--card);border:1px solid var(--bd);border-radius:16px;
+    padding:22px 24px;margin:0 0 18px;box-shadow:0 8px 30px rgba(0,0,0,.30)}
+  .card h2{font-size:19px;margin:0 0 10px;display:flex;align-items:center;gap:10px}
+  .num{background:var(--grn);color:#08120b;width:30px;height:30px;border-radius:50%;
+    display:inline-grid;place-items:center;font-weight:700;font-size:15px;flex:0 0 auto}
+  ol,ul{margin:8px 0 0;padding-left:22px}
+  li{margin:6px 0}
+  code{background:#0c110e;border:1px solid var(--bd);border-radius:7px;
+    padding:2px 8px;font-family:Consolas,monospace;font-size:14px;color:#cfe9db}
+  .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:13px;font-weight:600}
+  .verde{background:rgba(55,192,122,.18);color:var(--grn)}
+  .ambar{background:rgba(231,184,75,.18);color:var(--amb)}
+  .verm{background:rgba(230,120,120,.18);color:#e88}
+  .opt{background:rgba(90,162,230,.18);color:var(--blue);font-size:12px}
+  .tip{border-left:3px solid var(--grn);background:rgba(55,192,122,.07);
+    padding:12px 16px;border-radius:0 10px 10px 0;margin-top:14px;color:var(--mut);font-size:14px}
+  a{color:var(--blue)}
+  .say{background:#0c110e;border:1px dashed var(--grn);border-radius:10px;
+    padding:10px 14px;margin-top:8px;color:#cfe9db;font-family:Consolas,monospace;font-size:14px}
+  .foot{color:var(--mut);font-size:13px;text-align:center;margin-top:24px}
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+  td{border:1px solid var(--bd);padding:8px 10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Buscador de Vagas</h1>
+  <p class="sub">Analista / Coordenador Administrativo &middot; Bras&iacute;lia-DF &mdash; passo a passo pra usar</p>
+
+  <div class="card">
+    <h2><span class="num">?</span> O que ele faz</h2>
+    Todo dia que voc&ecirc; rodar, ele junta vagas administrativas em Bras&iacute;lia de fontes
+    <b>legais</b>, d&aacute; uma <b>nota de 0 a 100</b> pra cada uma (comparando com o seu curr&iacute;culo)
+    e salva um Excel com <b>duas abas</b>:
+    <ul>
+      <li><b>Vagas</b> &mdash; as vagas autom&aacute;ticas, j&aacute; ordenadas da melhor pra pior.</li>
+      <li><b>Links pra clicar</b> &mdash; buscas prontas nos grandes (LinkedIn, Indeed, Catho, Gupy,
+        Google). Rob&ocirc; neles &eacute; proibido, ent&atilde;o a gente te d&aacute; o atalho j&aacute; filtrado pra voc&ecirc; clicar.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="num">1</span> Pegar as chaves gr&aacute;tis (uma vez s&oacute;)</h2>
+    <b>Adzuna</b> (principal):
+    <ol>
+      <li>Abra <a href="https://developer.adzuna.com" target="_blank">developer.adzuna.com</a> e clique em <b>Sign up</b>.</li>
+      <li>Confirme o e-mail, entre e clique em <b>Create a new app</b> (nome qualquer).</li>
+      <li>Anote os dois valores: <b>Application ID</b> e <b>Application Key</b>.</li>
+    </ol>
+    <p style="margin-top:14px"><b>Jooble</b> <span class="pill opt">opcional &mdash; mais vagas</span>:</p>
+    <ol>
+      <li>Abra <a href="https://jooble.org/api/about" target="_blank">jooble.org/api/about</a> e pe&ccedil;a a chave gr&aacute;tis (API key).</li>
+      <li>Anote a chave que eles enviam.</li>
+    </ol>
+    <div class="tip">N&atilde;o precisa colar em lugar inseguro. No pr&oacute;ximo passo o Claude abre uma
+    paginazinha sua pra voc&ecirc; colar cada valor &mdash; vai direto pro seu computador, sem passar pelo chat.
+    S&oacute; a Adzuna j&aacute; faz o buscador funcionar; o Jooble &eacute; um extra.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num">2</span> Guardar as chaves</h2>
+    Volte no chat do Claude e escreva:
+    <div class="say">salvar minhas chaves de vagas</div>
+    Ele abre a paginazinha segura pra cada valor (Adzuna ID, Adzuna Key e, se voc&ecirc; tiver, Jooble).
+    Voc&ecirc; s&oacute; cola e clica em <b>Salvar</b>. Faz isso uma vez e pronto.
+  </div>
+
+  <div class="card">
+    <h2><span class="num">3</span> Rodar o buscador</h2>
+    <ul>
+      <li>Jeito f&aacute;cil: d&ecirc; <b>dois cliques</b> no arquivo <code>Buscar Vagas.bat</code>.</li>
+      <li>Abre uma janela preta, busca por alguns segundos e diz onde salvou.</li>
+      <li>Abra <code>vagas_encontradas.xlsx</code> &mdash; as vagas est&atilde;o na aba <b>Vagas</b> (melhores no topo)
+        e os atalhos dos grandes na aba <b>Links pra clicar</b>.</li>
+    </ul>
+    <div class="tip">Alternativa pelo terminal: <code>python buscar_vagas.py</code> dentro da pasta.
+    Sem as chaves ele ainda funciona &mdash; s&oacute; entrega a aba de links.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num">4</span> Como ler o Excel</h2>
+    <table>
+      <tr><td><span class="pill verde">70 a 100</span></td><td>Cara da sua vaga &mdash; olhe primeiro.</td></tr>
+      <tr><td><span class="pill ambar">40 a 69</span></td><td>Talvez sirva &mdash; vale dar uma olhada.</td></tr>
+      <tr><td><span class="pill verm">0 a 39</span></td><td>Provavelmente n&atilde;o combina.</td></tr>
+    </table>
+    <ul>
+      <li>A coluna <b>Combina porque</b> explica por que ganhou pontos; a coluna <b>Fonte</b> diz de onde veio.</li>
+      <li>A coluna <b>Link</b> tem "abrir vaga" &mdash; clique pra ir direto na vaga.</li>
+      <li>Na aba <b>Links pra clicar</b>, cada "abrir busca" j&aacute; leva no site grande com o filtro certo.</li>
+    </ul>
+    <div class="tip">O sal&aacute;rio vem das APIs e &agrave;s vezes &eacute; <b>estimado</b> (aparece escrito). Confira sempre na vaga original.</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="num">5</span> Rodar 1x por dia</h2>
+    <ul>
+      <li><b>Simples (recomendado):</b> de manh&atilde;, d&ecirc; dois cliques no <code>Buscar Vagas.bat</code>. 10 segundos.</li>
+      <li><b>Autom&aacute;tico (opcional):</b> d&aacute; pra agendar no Windows pra rodar sozinho.
+        &Eacute; s&oacute; me pedir "<b>agenda o buscador pra rodar todo dia</b>" que eu configuro.</li>
+    </ul>
+  </div>
+
+  <p class="foot">Cada vez que rodar, o Excel <code>vagas_encontradas.xlsx</code> &eacute; atualizado.</p>
+
+</div>
+</body>
+</html>
