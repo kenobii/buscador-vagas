@@ -1,0 +1,50 @@
+name: Atualiza vagas
+
+on:
+  schedule:
+    - cron: '0 12 * * *'   # 12:00 UTC = 09:00 no horário de Brasília, todo dia
+  workflow_dispatch:        # botão "Run workflow" para disparar na mão
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  buscar-e-publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Baixa o código
+        uses: actions/checkout@v4
+
+      - name: Prepara o Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instala dependências
+        run: pip install requests openpyxl
+
+      - name: Monta o .env a partir dos segredos
+        run: |
+          echo "ADZUNA_APP_ID=${{ secrets.ADZUNA_APP_ID }}" > .env
+          echo "ADZUNA_APP_KEY=${{ secrets.ADZUNA_APP_KEY }}" >> .env
+
+      - name: Roda o buscador (gera a pasta site/)
+        run: python buscar_vagas.py
+
+      - name: Empacota a página
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Publica no GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
